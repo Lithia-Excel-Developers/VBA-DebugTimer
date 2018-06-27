@@ -1,0 +1,7 @@
+{
+	"Module Paths": {
+		"DebugTimer": "src/DebugTimer.cls",
+		"test_DebugTimer": "src/test_DebugTimer.bas",
+		"fullNamePropertyGet": "src/fullNamePropertyGet.bas"
+	}
+}
