@@ -8,21 +8,34 @@ Attribute VB_Creatable = False
 Attribute VB_PredeclaredId = False
 Attribute VB_Exposed = False
 
+Private Declare Function GetTickCount Lib "kernel32" () As Long
 
+Private pStartTime As Long
+Private pIntervalTime As Long
+Private pIntervals As Collection
 
-Private pStartTime As Date
-Private pIntervalTime As Date
-
-Sub setStartTime()
-    pStartTime = Now
-    pIntervalTime = Now
+Private Sub Class_Initialize()
+    Set pIntervals = New Collection
 End Sub
 
-Function reportInterval() As Double
-    reportInterval = Now - pIntervalTime
-    pIntervalTime = Now
+Sub setStartTime()
+    pStartTime = GetTickCount
+    pIntervalTime = pStartTime
+    pIntervals.Add pStartTime
+End Sub
+
+Function reportInterval() As Long
+    pIntervals.Add GetTickCount - pStartTime
+    reportInterval = maxInterval
+    pIntervalTime = maxInterval
 End Function
 
-Function reportElapsed() As Double
-    reportElapsed = Now - pStartTime
+Function reportElapsed() As Long
+    reportElapsed = GetTickCount - pStartTime
+End Function
+
+
+
+Private Function maxInterval() As Long
+    maxInterval = pIntervals(pIntervals.Count)
 End Function
